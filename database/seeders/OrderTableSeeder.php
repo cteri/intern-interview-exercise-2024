@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Order;
 use App\Models\Product;
+use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -23,12 +24,15 @@ class OrderTableSeeder extends Seeder
             $employee = Employee::inRandomOrder()->first();
             $product = Product::inRandomOrder()->first();
 
+            $startDate = Carbon::parse($customer->birthDate)->addDay();
+            $endDate = 'now';
+
             Order::create([
                 'customerID' => $customer->customerID,
                 'employeeID' => $employee->employeeID,
                 'productID' => $product->productID,
                 'orderTotal' => $product->price * rand(1, 5),
-                'orderDate' => $faker->date($format = 'Y-m-d', $max = 'now')
+                'orderDate' => $faker->dateTimeBetween($startDate, $endDate)->format('Y-m-d H:i:s')
             ]);
         }
     }
