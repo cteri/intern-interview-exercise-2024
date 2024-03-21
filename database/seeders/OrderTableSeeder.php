@@ -24,8 +24,8 @@ class OrderTableSeeder extends Seeder
             $employee = Employee::inRandomOrder()->first();
             $product = Product::inRandomOrder()->first();
 
-            $startDate = Carbon::parse($customer->birthDate)->addDay();
-            $endDate = 'now';
+            $endDate = Carbon::now();
+            $startDate = Carbon::today()->subYear();
 
             Order::create([
                 'customerID' => $customer->customerID,

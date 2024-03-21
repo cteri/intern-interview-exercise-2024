@@ -18,11 +18,11 @@ class ReportController extends Controller
     {
         $result = $this->service->count($request);
 
-        $chartOptions = array_map(function($item) {
-            return $item['category'];
+        $chartOptions = array_map(function ($item) {
+            return 'category ' . $item['category'];
         }, $result);
 
-        $chartData = array_map(function($item) {
+        $chartData = array_map(function ($item) {
             return $item['total'];
         }, $result);
 

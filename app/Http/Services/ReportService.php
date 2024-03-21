@@ -24,7 +24,7 @@ class ReportService
         });
     }
 
-    public function query($request)
+    public function query($request): \Illuminate\Database\Eloquent\Builder
     {
         $model = Order::query();
 
@@ -32,7 +32,7 @@ class ReportService
         $endDate = $request->get('endDate');
 
         if (!empty($startData) && !empty($endDate)) {
-            $model->whereBetween('orderDate', [100, 200]);
+            $model->whereBetween('orderDate', [$startData, $endDate]);
         } elseif (!empty($startData)) {
             $model->where('orderDate', '>=', $startData);
         } elseif (!empty($endDate)) {
@@ -41,7 +41,7 @@ class ReportService
 
         $orderTotal = $request->get('minOrderTotal');
         if (!empty($orderTotal)) {
-            $model->where('orderDate', '>=', $orderTotal);
+            $model->where('orderTotal', '>=', $orderTotal);
         }
 
         $model->join('products', 'orders.productId', '=', 'products.productID');
@@ -75,7 +75,7 @@ class ReportService
 
             $model->join('customers', 'orders.customerId', '=', 'customers.customerId');
 
-            return $model->select($columns)->paginate(15);
+            return $model->select($columns)->orderByDesc('orderID')->paginate(10);
         });
     }
 }

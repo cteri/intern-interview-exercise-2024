@@ -1,5 +1,7 @@
 <template>
-    <Bar :data="chartData" />
+    <div class="chart-container">
+        <Bar :data="chartData"/>
+    </div>
 </template>
 
 <script>
@@ -17,7 +19,7 @@ export default {
                 labels: window.Laravel.chartOptions,
                 datasets: [
                     {
-                        label: 'Data One',
+                        label: 'Category',
                         backgroundColor: '#f87979',
                         data: window.Laravel.chartData
                     }

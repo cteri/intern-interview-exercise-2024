@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div>
+            <a class="btn btn-primary" href="/" role="button">Back to Search Page</a>
+        </div>
         <report-chart></report-chart>
         <report-detail :orders="orders"></report-detail>
     </div>
