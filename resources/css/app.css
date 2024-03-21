@@ -4,3 +4,10 @@
     padding: 15px;
     margin: auto;
 }
+
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    margin: auto;
+}
