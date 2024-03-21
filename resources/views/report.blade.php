@@ -4,11 +4,11 @@
     <div id="app">
         @vite('resources/js/report.js')
     </div>
-
 <script>
     window.Laravel = {!! json_encode([
                 'chartData' => $chartData,
-                'chartOptions' => $chartOptions
+                'chartOptions' => $chartOptions,
+                'orders' => $orders,
             ]) !!}
 </script>
 @endsection

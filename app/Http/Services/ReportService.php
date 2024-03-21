@@ -2,12 +2,29 @@
 
 namespace App\Http\Services;
 
+use App\Http\Traits\Helper;
 use App\Models\Order;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class ReportService
 {
-    public function get($request)
+    use Helper;
+
+    public function count($request)
+    {
+        $columns = ['products.category', DB::raw('count(*) as total')];
+
+        $key = $this->hashKey($request->all(), $columns);
+
+        return Cache::remember($key, $seconds = rand(10, 15) * 60, function () use ($request, $columns) {
+            $model = $this->query($request);
+
+            return $model->select($columns)->groupBy('products.category')->get()->toArray();
+        });
+    }
+
+    public function query($request)
     {
         $model = Order::query();
 
@@ -34,9 +51,31 @@ class ReportService
             $model->whereIn('products.category', $categories);
         }
 
-        return $model->select('products.category', DB::raw('count(*) as total'))
-            ->groupBy('products.category')
-            ->get()
-            ->toArray();
+        return $model;
+    }
+
+    public function orders($request)
+    {
+        $columns = [
+            'orders.orderID',
+            'orders.productID',
+            'orders.orderTotal',
+            'orders.orderDate',
+            'orders.customerID',
+            'customers.FirstName',
+            'customers.LastName',
+            'customers.BirthDate',
+            'customers.PhoneNumber',
+        ];
+
+        $key = $this->hashKey($request->all(), $columns);
+
+        return Cache::remember($key, $seconds = rand(10, 15) * 60, function () use ($request, $columns) {
+            $model = $this->query($request);
+
+            $model->join('customers', 'orders.customerId', '=', 'customers.customerId');
+
+            return $model->select($columns)->paginate(15);
+        });
     }
 }

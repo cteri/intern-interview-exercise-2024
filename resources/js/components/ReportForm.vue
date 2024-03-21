@@ -7,8 +7,7 @@
 
         <hr className="my-4">
 
-        <form className="needs-validation" ref="form" action="/report" method="post" noValidate="" @submit.prevent="onSubmit">
-            <input type="hidden" id="_token" name="_token" :value="csrfToken">
+        <form className="needs-validation" ref="form" action="/report" method="get" noValidate="" @submit.prevent="onSubmit">
             <div className="row g-3">
                 <div className="col-12">
                     <div className="input-group">
@@ -67,13 +66,8 @@ export default {
     name: "ReportForm",
     data() {
         return {
-            csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
             startDate: '',
             endDate: '',
-            categoryA: false,
-            categoryB: false,
-            categoryC: false,
-            minOrderTotal: null
         };
     },
     methods: {

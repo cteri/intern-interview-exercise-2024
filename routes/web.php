@@ -22,4 +22,4 @@ Route::get('/search', function () {
     return view('search');
 });
 
-Route::post('/report', [ReportController::class, 'show']);
+Route::get('/report', [ReportController::class, 'show']);

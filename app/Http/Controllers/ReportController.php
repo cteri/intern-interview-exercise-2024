@@ -16,17 +16,19 @@ class ReportController extends Controller
 
     public function show(ReportRequest $request)
     {
-        $result = $this->service->get($request);
+        $result = $this->service->count($request);
 
         $chartOptions = array_map(function($item) {
             return $item['category'];
         }, $result);
 
-
         $chartData = array_map(function($item) {
             return $item['total'];
         }, $result);
 
-        return view('report', compact('chartData', 'chartOptions'));
+        $orders = $this->service->orders($request);
+        $orders->appends($request->all());
+
+        return view('report', compact('chartData', 'chartOptions', 'orders'));
     }
 }

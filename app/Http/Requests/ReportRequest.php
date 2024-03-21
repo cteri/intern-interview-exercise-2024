@@ -28,6 +28,7 @@ class ReportRequest extends FormRequest
             'categories' => 'nullable|array',
             'categories.*' => 'in:A,B,C',
             'minOrderTotal' => 'nullable|numeric',
+            'page' => 'nullable|numeric',
         ];
     }
 }
