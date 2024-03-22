@@ -2,13 +2,11 @@
 
 @section('content')
     <div id="app">
-        @vite('resources/js/report.js')
     </div>
 <script>
-    window.Laravel = {!! json_encode([
-                'chartData' => $chartData,
-                'chartOptions' => $chartOptions,
-                'orders' => $orders,
-            ]) !!}
+    window.chartData = '{!! json_encode($chartData) !!}'
+    window.chartOptions = '{!! json_encode($chartOptions) !!}'
+    window.orders = '{!! json_encode($orders) !!}'
 </script>
+<script src="{{ mix('js/report.js') }}"></script>
 @endsection

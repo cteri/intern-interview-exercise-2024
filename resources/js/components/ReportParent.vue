@@ -18,7 +18,7 @@ export default {
     components: {ReportDetail, ReportChart},
     data() {
         return {
-            orders: window.Laravel.orders
+            orders: JSON.parse(window.orders)
         };
     }
 }

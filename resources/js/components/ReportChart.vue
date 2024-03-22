@@ -16,12 +16,12 @@ export default {
     data() {
         return {
             chartData: {
-                labels: window.Laravel.chartOptions,
+                labels: JSON.parse(window.chartOptions),
                 datasets: [
                     {
                         label: 'Category',
                         backgroundColor: '#f87979',
-                        data: window.Laravel.chartData
+                        data: JSON.parse(window.chartData),
                     }
                 ]
             }
